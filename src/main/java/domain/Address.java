@@ -11,8 +11,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "address")
+@Table(name = Address.TABLE_NAME)
 public class Address extends BaseEntity<Long> {
+
+    public static final String TABLE_NAME = "address";
 
     @Column(name = "province")
     private String province;
