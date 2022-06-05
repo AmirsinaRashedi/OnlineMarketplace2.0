@@ -13,7 +13,13 @@ public class Cart {
 
     public void addItem(Product item) {
 
-        items.add(item);
+        if (items.size() < 6)
+
+            items.add(item);
+
+        else
+
+            throw new IndexOutOfBoundsException("cart is full");
 
     }
 
