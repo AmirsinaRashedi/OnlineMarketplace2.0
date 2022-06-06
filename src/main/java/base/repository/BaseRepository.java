@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public interface BaseRepository<T extends BaseEntity<ID>, ID extends Serializable> {
 
-    void save(T t);
+    T save(T t);
 
     T update(T t);
 
@@ -15,5 +15,6 @@ public interface BaseRepository<T extends BaseEntity<ID>, ID extends Serializabl
     T find(T t);
 
     T findById(ID id);
+
 
 }

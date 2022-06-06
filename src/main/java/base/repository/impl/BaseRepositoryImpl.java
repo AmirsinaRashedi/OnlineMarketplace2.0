@@ -20,7 +20,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>, ID extends Se
     }
 
     @Override
-    public void save(T t) {
+    public T save(T t) {
 
         em = emf.createEntityManager();
 
@@ -43,6 +43,8 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>, ID extends Se
             em.close();
 
         }
+
+        return t;
     }
 
     @Override
@@ -125,6 +127,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>, ID extends Se
 
         return newEntity;
     }
+
 
     public abstract Class<T> getClassType();
 }

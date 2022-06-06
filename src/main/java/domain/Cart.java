@@ -5,17 +5,17 @@ import java.util.List;
 
 public class Cart {
 
-    private List<Product> items;
+    private List<Order> orders;
 
     public Cart() {
-        items = new ArrayList<>();
+        orders = new ArrayList<>();
     }
 
-    public void addItem(Product item) {
+    public void addItem(Order order) {
 
-        if (items.size() < 6)
+        if (orders.size() < 6)
 
-            items.add(item);
+            orders.add(order);
 
         else
 
@@ -25,17 +25,21 @@ public class Cart {
 
     public void removeItem(int index) {
 
-        items.remove(index);
+        orders.remove(index);
 
     }
 
-    public List<Product> getItems() {
-        return items;
+    public List<Order> getItems() {
+        return orders;
     }
 
     public Integer getItemCount() {
 
-        return items.size();
+        return orders.size();
 
+    }
+
+    public void resetCart() {
+        orders = new ArrayList<>();
     }
 }
