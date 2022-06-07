@@ -1,5 +1,7 @@
 package domain;
 
+import util.ApplicationContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class Cart {
 
     public void addItem(Order order) {
 
-        if (orders.size() < 6)
+        if (orders.size() < 5)
 
             orders.add(order);
 
@@ -24,6 +26,12 @@ public class Cart {
     }
 
     public void removeItem(int index) {
+
+        Product product = orders.get(index).getProduct();
+
+        product.setAvailableUnits(product.getAvailableUnits() + orders.get(index).getQuantity());
+
+        ApplicationContext.productRepository.update(product);
 
         orders.remove(index);
 

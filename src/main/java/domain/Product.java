@@ -4,6 +4,7 @@ import base.domain.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class Product extends BaseEntity<Long> {
@@ -77,6 +78,39 @@ public abstract class Product extends BaseEntity<Long> {
             return "Electronic ->    "
                     + "Name: " + title
                     + "    Model: " + type
+                    + "    Manufacturer: " + creator
+                    + "    price: " + pricePerUnit
+                    + "    available units: " + availableUnits;
+
+        else if (productTypeId == 2)
+
+            return "Shoe ->    "
+                    + "Name: " + title
+                    + "    Type: " + type
+                    + "    Brand: " + creator
+                    + "    price: " + pricePerUnit
+                    + "    available units: " + availableUnits;
+
+        else if (productTypeId == 3)
+
+            return "Litterateur ->    "
+                    + "Title: " + title
+                    + "    type: " + type
+                    + "    author: " + creator
+                    + "    price: " + pricePerUnit
+                    + "    available units: " + availableUnits;
+
+        else
+
+            return null;
+    }
+
+    public String getItemDetails() {
+        if (productTypeId == 1)
+
+            return "Electronic ->    "
+                    + "Name: " + title
+                    + "    Model: " + type
                     + "    Manufacturer: " + creator;
 
         else if (productTypeId == 2)
@@ -96,5 +130,19 @@ public abstract class Product extends BaseEntity<Long> {
         else
 
             return null;
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(productTypeId, product.productTypeId) && Objects.equals(pricePerUnit, product.pricePerUnit) && Objects.equals(title, product.title) && Objects.equals(type, product.type) && Objects.equals(creator, product.creator);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productTypeId, availableUnits, pricePerUnit, title, type, creator);
     }
 }
