@@ -1,11 +1,9 @@
 package domain;
 
 import base.domain.BaseEntity;
+import repository.impl.CartRepositoryImpl;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = User.TABLE_NAME)
@@ -34,7 +32,11 @@ public class User extends BaseEntity<Long> {
     @ManyToOne
     private Address address;
 
+    @Transient
+    private CartRepositoryImpl cartRepository;
+
     public User() {
+        cartRepository = new CartRepositoryImpl(new Cart());
     }
 
     public String getUsername() {
@@ -91,5 +93,13 @@ public class User extends BaseEntity<Long> {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public CartRepositoryImpl getCartRepository() {
+        return cartRepository;
+    }
+
+    public void setCartRepository(CartRepositoryImpl cartRepository) {
+        this.cartRepository = cartRepository;
     }
 }
