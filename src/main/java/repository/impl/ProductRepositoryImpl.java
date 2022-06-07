@@ -33,15 +33,21 @@ public class ProductRepositoryImpl extends BaseRepositoryImpl<Product, Long>
 
         TypedQuery<Shoes> selectShoesQuery = em.createQuery("from Shoes ", Shoes.class);
 
-        stock.addAll(selectShoesQuery.getResultList());
+        if (selectShoesQuery.getResultList() != null)
+
+            stock.addAll(selectShoesQuery.getResultList());
 
         TypedQuery<Electronics> selectElectronicsQuery = em.createQuery("from Electronics ", Electronics.class);
 
-        stock.addAll(selectElectronicsQuery.getResultList());
+        if (selectElectronicsQuery.getResultList() != null)
+
+            stock.addAll(selectElectronicsQuery.getResultList());
 
         TypedQuery<Litterateur> selectLitterateurQuery = em.createQuery("from Litterateur ", Litterateur.class);
 
-        stock.addAll(selectLitterateurQuery.getResultList());
+        if (selectLitterateurQuery.getResultList() != null)
+
+            stock.addAll(selectLitterateurQuery.getResultList());
 
         em.close();
 
