@@ -81,18 +81,38 @@ public class CartRepositoryImpl
 
                             if (choiceAmount > 0 && choiceAmount <= stock.get(choice - 1).getAvailableUnits()) {
 
-                                try {
+                                Order newOrder = new Order(stock.get(choice - 1), choiceAmount);
 
-                                    cart.addItem(new Order(stock.get(choice - 1), choiceAmount));
+                                boolean duplicateOrder = false;
 
-                                    stock.get(choice - 1).setAvailableUnits(stock.get(choice - 1).getAvailableUnits() - choiceAmount);
+                                for (Order order : cart.getItems()) {
 
-                                    ApplicationContext.productRepository.update(stock.get(choice - 1));
+                                    if (newOrder.equals(order)) {
 
-                                } catch (Exception e) {
+                                        order.setQuantity(order.getQuantity() + choiceAmount);
 
-                                    System.out.println(e.getMessage());
+                                        duplicateOrder = true;
 
+                                        break;
+
+                                    }
+                                }
+
+                                if (!duplicateOrder) {
+
+                                    try {
+
+                                        cart.addItem(newOrder);
+
+                                        stock.get(choice - 1).setAvailableUnits(stock.get(choice - 1).getAvailableUnits() - choiceAmount);
+
+                                        ApplicationContext.productRepository.update(stock.get(choice - 1));
+
+                                    } catch (Exception e) {
+
+                                        System.out.println(e.getMessage());
+
+                                    }
                                 }
 
                             } else
@@ -111,7 +131,7 @@ public class CartRepositoryImpl
 
                         for (Order order : cart.getItems()) {
 
-                            System.out.print(++count + "- " + order);
+                            System.out.println(++count + "- " + order);
 
                         }
 
@@ -119,7 +139,7 @@ public class CartRepositoryImpl
                             System.out.print("select an item to remove: ");
                             choice = intInput.nextInt();
 
-                            if (choice > 0 && choice < count)
+                            if (choice > 0 && choice <= count)
 
                                 cart.removeItem(choice - 1);
 
@@ -137,8 +157,7 @@ public class CartRepositoryImpl
 
                         for (Order item : cart.getItems()) {
 
-                            System.out.print(++itemCount + "- " + item.getProduct()
-                                    + "   price: " + item.getQuantity() * item.getProduct().getPricePerUnit());
+                            System.out.println(++itemCount + "- " + item);
 
                             totalPrice += item.getQuantity() * item.getProduct().getPricePerUnit();
 
