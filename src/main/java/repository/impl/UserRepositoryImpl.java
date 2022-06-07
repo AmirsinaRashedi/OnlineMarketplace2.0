@@ -7,6 +7,7 @@ import repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Scanner;
 
@@ -38,14 +39,55 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<User, Long>
 
         query.setParameter("user_name", username);
 
-        newUser = query.getSingleResult();
+        try {
+
+            newUser = query.getSingleResult();
+
+        } catch (NoResultException e) {
+
+            newUser = null;
+
+        } finally {
+            em.close();
+        }
 
         return newUser;
     }
 
     @Override
     public User loginToUser() {
-        return null;
+        System.out.print("enter username: ");
+
+        Scanner stringInput = new Scanner(System.in);
+
+        User loginUser = findByUsername(stringInput.nextLine());
+
+        if (loginUser != null) {
+
+            System.out.print("enter password: ");
+
+            String enteredPassword = stringInput.nextLine();
+
+            if (loginUser.getPassword().equals(enteredPassword)) {
+
+                System.out.println("login successful!");
+
+                return loginUser;
+
+            } else {
+
+                System.out.println("incorrect password!");
+                return null;
+
+            }
+        } else {
+
+            System.out.println("user not found!");
+            return null;
+
+        }
+
+
     }
 
     @Override
