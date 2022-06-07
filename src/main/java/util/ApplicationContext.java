@@ -20,6 +20,7 @@ public class ApplicationContext {
 
     static {
         resetAll();
+        securityContext = new SecurityContext();
     }
 
     private static void resetAll() {
